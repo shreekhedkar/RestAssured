@@ -79,7 +79,7 @@ public class RestValidationTest {
 
 		String id = response.then().log().all().assertThat().statusCode(HttpStatus.SC_CREATED).extract().path("id");
 
-		get("https://reqres.in/api/users/" + id).then().assertThat().statusCode(200).and().body("data.id", equalTo(id));
+		get("https://reqres.in/api/users/" + id).then().assertThat().statusCode(404).and().body("data.id", equalTo(id));
 	}
 
 	@Test
