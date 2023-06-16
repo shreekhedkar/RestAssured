@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam 'skip_tests'
+        booleanParam 'skip_sonar'
+    }
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "MyMaven"
@@ -34,11 +38,10 @@ pipeline {
                 }
             }
         }
-        post {
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
-                }
+        stage('Report Generation') {
+            steps {
+                testNG()
             }
+         }
+        }
     }
-}
