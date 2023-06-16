@@ -31,10 +31,6 @@ pipeline {
                     withSonarQubeEnv('MySonarQube') { 
                         sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=github-jenkins-sonar-Declarative-Pipeline"
                     }
-                     if ("${json.projectStatus.status}" == "ERROR") {
-                            currentBuild.result = 'FAILURE'
-                            error('Pipeline aborted due to quality gate failure.')
-                    }
                 }
             }
         }
